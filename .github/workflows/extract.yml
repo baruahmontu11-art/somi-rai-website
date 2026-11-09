@@ -1,0 +1,21 @@
+name: Extract project zip
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          unzip -o somi-rai-netlify-pack.zip
+          if [ -d "somi-rai-netlify/project" ]; then SRC="somi-rai-netlify/project"; elif [ -d "project" ]; then SRC="project"; else echo "No project folder"; ls -R; exit 1; fi
+          cp -a "$SRC"/. .
+          rm -rf somi-rai-netlify project somi-rai-netlify-pack.zip .github
+          git config user.name "baruahmontu11-art"
+          git config user.email "baruahmontu11@gmail.com"
+          git add -A
+          git status --short
+          git commit -m "Extract project contents to repo root"
+          git push
