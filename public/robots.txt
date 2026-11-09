@@ -1,0 +1,6 @@
+# Robots.txt for Somi Rai Website
+User-agent: *
+Allow: /
+
+# Public Sitemap
+Sitemap: https://somirai.in/sitemap.xml
